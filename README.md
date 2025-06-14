@@ -1,8 +1,8 @@
-# 🧠 Smart-Hire – Skill-Based Hiring Platform
+# 🧠 HireGenix – Skill-Based Hiring Platform
 
 ## 🔰 Objective
 
-**Smart-Hire** is a MERN-based platform designed to connect employers and job seekers through **skill-set-based job hiring**. The system uses intelligent matching to suggest relevant jobs to candidates based on their skills, and helps companies find ideal candidates faster.
+**HireGenix** is a MERN-based platform designed to connect employers and job seekers through **skill-set-based job hiring**. The system uses intelligent matching to suggest relevant jobs to candidates based on their skills, and helps companies find ideal candidates faster.
 
 ---
 
