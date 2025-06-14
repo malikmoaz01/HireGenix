@@ -50,22 +50,22 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full space-y-8">
         {/* Header */}
         <div className="text-center">
           <div className="flex justify-center items-center mb-6">
-            <User className="h-12 w-12 text-yellow-400 mr-2" />
-            <h1 className="text-4xl font-bold text-yellow-400">HireGenix</h1>
+            <User className="h-12 w-12 text-blue-600 mr-2" />
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">HireGenix</h1>
           </div>
-          <h2 className="text-3xl font-bold text-white mb-2">Welcome Back</h2>
-          <p className="text-gray-400">Sign in to your account</p>
+          <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h2>
+          <p className="text-gray-600">Sign in to your account</p>
         </div>
 
         {/* Login Form */}
-        <div className="mt-8 space-y-6">
+        <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
           {error && (
-            <div className="bg-red-900/20 border border-red-500 text-red-400 px-4 py-3 rounded-lg">
+            <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl">
               {error}
             </div>
           )}
@@ -73,7 +73,7 @@ const Login = () => {
           <div className="space-y-4">
             {/* Email Field */}
             <div>
-              <label className="block text-sm font-medium text-yellow-400 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
               </label>
               <div className="relative">
@@ -84,7 +84,7 @@ const Login = () => {
                   name="email"
                   type="email"
                   required
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-600 rounded-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition duration-200"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={handleChange}
@@ -94,7 +94,7 @@ const Login = () => {
 
             {/* Password Field */}
             <div>
-              <label className="block text-sm font-medium text-yellow-400 mb-2">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
               </label>
               <div className="relative">
@@ -105,7 +105,7 @@ const Login = () => {
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   required
-                  className="block w-full pl-10 pr-10 py-3 border border-gray-600 rounded-lg bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition duration-200"
+                  className="block w-full pl-10 pr-10 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={handleChange}
@@ -116,9 +116,9 @@ const Login = () => {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-yellow-400 transition duration-200" />
+                    <EyeOff className="h-5 w-5 text-gray-400 hover:text-blue-600 transition duration-200" />
                   ) : (
-                    <Eye className="h-5 w-5 text-gray-400 hover:text-yellow-400 transition duration-200" />
+                    <Eye className="h-5 w-5 text-gray-400 hover:text-blue-600 transition duration-200" />
                   )}
                 </button>
               </div>
@@ -130,14 +130,14 @@ const Login = () => {
             <div className="flex items-center">
               <input
                 type="checkbox"
-                className="h-4 w-4 text-yellow-400 focus:ring-yellow-400 border-gray-600 rounded bg-gray-900"
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
               />
-              <label className="ml-2 block text-sm text-gray-400">
+              <label className="ml-2 block text-sm text-gray-600">
                 Remember me
               </label>
             </div>
             <div className="text-sm">
-              <button className="font-medium text-yellow-400 hover:text-yellow-300 transition duration-200">
+              <button className="font-medium text-blue-600 hover:text-purple-600 transition duration-200">
                 Forgot your password?
               </button>
             </div>
@@ -148,11 +148,11 @@ const Login = () => {
             <button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-black bg-yellow-400 hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition duration-200 transform hover:scale-105"
+              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
             >
               {isLoading ? (
                 <div className="flex items-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-black mr-2"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
                   Signing in...
                 </div>
               ) : (
@@ -163,9 +163,9 @@ const Login = () => {
 
           {/* Sign Up Link */}
           <div className="text-center">
-            <p className="text-gray-400">
+            <p className="text-gray-600">
               Don't have an account?{' '}
-              <button className="font-medium text-yellow-400 hover:text-yellow-300 transition duration-200">
+              <button className="font-medium text-blue-600 hover:text-purple-600 transition duration-200">
                 Sign up here
               </button>
             </p>

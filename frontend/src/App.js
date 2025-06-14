@@ -1,108 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import FeaturesSection from './components/FeaturesSection';
-import HowItWorksSection from './components/HowItWorksSection';
-import TestimonialsSection from './components/TestimonialsSection';
-import CTASection from './components/CTASection';
 import Footer from './components/Footer';
 
-// Simple Router Component
-const Router = ({ children, currentPath }) => {
-  return (
-    <div>
-      {React.Children.map(children, child => {
-        if (child.props.path === currentPath) {
-          return child.props.children;
-        }
-        return null;
-      })}
-    </div>
-  );
-};
+// Import page components
+import HomePage from './components/Homepage';
+import FindJobsPage from './components/FindJobs';
+import AboutPage from './components/About';
+import LoginPage from './components/Login';
+import SignupPage from './components/Signup';
+import CompaniesPage from './components/Companies';
 
-const Route = ({ path, children }) => children;
-
-// Home Page Component
-const HomePage = ({ setCurrentPath }) => {
-  return (
-    <div>
-      <HeroSection />
-      <FeaturesSection />
-      <HowItWorksSection />
-      <TestimonialsSection />
-      <CTASection setCurrentPath={setCurrentPath} />
-    </div>
-  );
-};
-
-// Other Pages (Placeholder)
-const JobsPage = () => (
-  <div className="py-20 text-center">
-    <h1 className="text-4xl font-bold text-gray-900 mb-4">Find Jobs</h1>
-    <p className="text-xl text-gray-600">Job listings coming soon...</p>
-  </div>
-);
-
-const CompaniesPage = () => (
-  <div className="py-20 text-center">
-    <h1 className="text-4xl font-bold text-gray-900 mb-4">Companies</h1>
-    <p className="text-xl text-gray-600">Company profiles coming soon...</p>
-  </div>
-);
-
-const AboutPage = () => (
-  <div className="py-20 text-center">
-    <h1 className="text-4xl font-bold text-gray-900 mb-4">About Us</h1>
-    <p className="text-xl text-gray-600">Learn more about HireGenix...</p>
-  </div>
-);
-
-const LoginPage = () => (
-  <div className="py-20 text-center">
-    <h1 className="text-4xl font-bold text-gray-900 mb-4">Login</h1>
-    <p className="text-xl text-gray-600">Login form coming soon...</p>
-  </div>
-);
-
-const SignupPage = () => (
-  <div className="py-20 text-center">
-    <h1 className="text-4xl font-bold text-gray-900 mb-4">Sign Up</h1>
-    <p className="text-xl text-gray-600">Registration form coming soon...</p>
-  </div>
-);
-
-// Main App Component
 const App = () => {
-  const [currentPath, setCurrentPath] = useState('/');
-
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar currentPath={currentPath} setCurrentPath={setCurrentPath} />
-      
-      <Router currentPath={currentPath}>
-        <Route path="/">
-          <HomePage setCurrentPath={setCurrentPath} />
-        </Route>
-        <Route path="/jobs">
-          <JobsPage />
-        </Route>
-        <Route path="/companies">
-          <CompaniesPage />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/signup">
-          <SignupPage />
-        </Route>
-      </Router>
-      
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen bg-white">
+        <Routes>
+          {/* Main routes */}
+          <Route
+            path="/*"
+            element={
+              <>
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/jobs" element={<FindJobsPage />} />
+                  <Route path='/companies' element = {<CompaniesPage />}/>
+                  <Route path="/about" element={<AboutPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/signup" element={<SignupPage />} />
+                </Routes>
+                <Footer />
+              </>
+            }
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 
