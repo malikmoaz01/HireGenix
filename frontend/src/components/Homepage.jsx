@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar';
+import React from 'react';
 import HeroSection from './components/HeroSection';
 import FeaturesSection from './components/FeaturesSection';
 import HowItWorksSection from './components/HowItWorksSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import CTASection from './components/CTASection';
-import Footer from './components/Footer';
 
 // Simple Router Component
-const Router = ({ children, currentPath }) => {
+export const Router = ({ children, currentPath }) => {
   return (
     <div>
       {React.Children.map(children, child => {
@@ -21,7 +19,7 @@ const Router = ({ children, currentPath }) => {
   );
 };
 
-const Route = ({ path, children }) => children;
+export const Route = ({ path, children }) => children;
 
 // Home Page Component
 const HomePage = ({ setCurrentPath }) => {
@@ -37,73 +35,39 @@ const HomePage = ({ setCurrentPath }) => {
 };
 
 // Other Pages (Placeholder)
-const JobsPage = () => (
+export const JobsPage = () => (
   <div className="py-20 text-center">
     <h1 className="text-4xl font-bold text-gray-900 mb-4">Find Jobs</h1>
     <p className="text-xl text-gray-600">Job listings coming soon...</p>
   </div>
 );
 
-const CompaniesPage = () => (
+export const CompaniesPage = () => (
   <div className="py-20 text-center">
     <h1 className="text-4xl font-bold text-gray-900 mb-4">Companies</h1>
     <p className="text-xl text-gray-600">Company profiles coming soon...</p>
   </div>
 );
 
-const AboutPage = () => (
+export const AboutPage = () => (
   <div className="py-20 text-center">
     <h1 className="text-4xl font-bold text-gray-900 mb-4">About Us</h1>
     <p className="text-xl text-gray-600">Learn more about HireGenix...</p>
   </div>
 );
 
-const LoginPage = () => (
+export const LoginPage = () => (
   <div className="py-20 text-center">
     <h1 className="text-4xl font-bold text-gray-900 mb-4">Login</h1>
     <p className="text-xl text-gray-600">Login form coming soon...</p>
   </div>
 );
 
-const SignupPage = () => (
+export const SignupPage = () => (
   <div className="py-20 text-center">
     <h1 className="text-4xl font-bold text-gray-900 mb-4">Sign Up</h1>
     <p className="text-xl text-gray-600">Registration form coming soon...</p>
   </div>
 );
 
-// Main App Component
-const App = () => {
-  const [currentPath, setCurrentPath] = useState('/');
-
-  return (
-    <div className="min-h-screen bg-white">
-      <Navbar currentPath={currentPath} setCurrentPath={setCurrentPath} />
-      
-      <Router currentPath={currentPath}>
-        <Route path="/">
-          <HomePage setCurrentPath={setCurrentPath} />
-        </Route>
-        <Route path="/jobs">
-          <JobsPage />
-        </Route>
-        <Route path="/companies">
-          <CompaniesPage />
-        </Route>
-        <Route path="/about">
-          <AboutPage />
-        </Route>
-        <Route path="/login">
-          <LoginPage />
-        </Route>
-        <Route path="/signup">
-          <SignupPage />
-        </Route>
-      </Router>
-      
-      <Footer />
-    </div>
-  );
-};
-
-export default App;
+export default HomePage;
