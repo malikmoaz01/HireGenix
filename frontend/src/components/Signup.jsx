@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, User, UserPlus } from 'lucide-react';
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -27,14 +29,12 @@ const Signup = () => {
     setIsLoading(true);
     setError('');
 
-    // Validate passwords match
     if (formData.password !== formData.confirmPassword) {
       setError('Passwords do not match');
       setIsLoading(false);
       return;
     }
 
-    // Validate password strength
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters long');
       setIsLoading(false);
@@ -42,7 +42,7 @@ const Signup = () => {
     }
 
     try {
-      const response = await fetch('/api/auth/signup', {
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const Signup = () => {
       if (response.ok) {
         console.log('Signup successful:', data);
         alert('Account created successfully!');
-        // Redirect to login or dashboard
+        navigate('/login');
       } else {
         setError(data.message || 'Signup failed');
       }
@@ -74,7 +74,6 @@ const Signup = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center px-4 py-8">
       <div className="max-w-md w-full space-y-8">
-        {/* Header */}
         <div className="text-center">
           <div className="flex justify-center items-center mb-6">
             <UserPlus className="h-12 w-12 text-blue-600 mr-2" />
@@ -84,7 +83,6 @@ const Signup = () => {
           <p className="text-gray-600">Join us and start your career journey</p>
         </div>
 
-        {/* Signup Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8 space-y-6">
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl">
@@ -92,8 +90,7 @@ const Signup = () => {
             </div>
           )}
 
-          <div className="space-y-4">
-            {/* Name Field */}
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Full Name
@@ -114,7 +111,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Email Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -135,7 +131,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Role Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 I am a
@@ -151,7 +146,6 @@ const Signup = () => {
               </select>
             </div>
 
-            {/* Password Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -183,7 +177,6 @@ const Signup = () => {
               </div>
             </div>
 
-            {/* Confirm Password Field */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
                 Confirm Password
@@ -214,50 +207,50 @@ const Signup = () => {
                 </button>
               </div>
             </div>
-          </div>
 
-          {/* Terms and Conditions */}
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              required
-              className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-            />
-            <label className="ml-2 block text-sm text-gray-600">
-              I agree to the{' '}
-              <button className="text-blue-600 hover:text-purple-600 transition duration-200">
-                Terms and Conditions
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                required
+                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+              />
+              <label className="ml-2 block text-sm text-gray-600">
+                I agree to the{' '}
+                <button type="button" className="text-blue-600 hover:text-purple-600 transition duration-200">
+                  Terms and Conditions
+                </button>
+                {' '}and{' '}
+                <button type="button" className="text-blue-600 hover:text-purple-600 transition duration-200">
+                  Privacy Policy
+                </button>
+              </label>
+            </div>
+
+            <div>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
+              >
+                {isLoading ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Creating Account...
+                  </div>
+                ) : (
+                  'Create Account'
+                )}
               </button>
-              {' '}and{' '}
-              <button className="text-blue-600 hover:text-purple-600 transition duration-200">
-                Privacy Policy
-              </button>
-            </label>
-          </div>
+            </div>
+          </form>
 
-          {/* Submit Button */}
-          <div>
-            <button
-              onClick={handleSubmit}
-              disabled={isLoading}
-              className="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-105"
-            >
-              {isLoading ? (
-                <div className="flex items-center">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Creating Account...
-                </div>
-              ) : (
-                'Create Account'
-              )}
-            </button>
-          </div>
-
-          {/* Sign In Link */}
           <div className="text-center">
             <p className="text-gray-600">
               Already have an account?{' '}
-              <button className="font-medium text-blue-600 hover:text-purple-600 transition duration-200">
+              <button 
+                onClick={() => navigate('/login')}
+                className="font-medium text-blue-600 hover:text-purple-600 transition duration-200"
+              >
                 Sign in here
               </button>
             </p>
