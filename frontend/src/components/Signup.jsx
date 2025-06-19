@@ -140,9 +140,10 @@ const Signup = () => {
                 className="block w-full px-3 py-3 border border-gray-200 rounded-xl bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-200"
                 value={formData.role}
                 onChange={handleChange}
-              >
-                <option value="jobseeker">Job Seeker</option>
-                <option value="employer">Employer</option>
+              > 
+              <option value="jobseeker">Job Seeker</option>
+              <option value="company">Company</option>
+                
               </select>
             </div>
 

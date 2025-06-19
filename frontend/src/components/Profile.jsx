@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { User, Phone, BookOpen, Briefcase, Upload, X, Edit3, Save, FileText, Download } from 'lucide-react';
+import { Navigate } from 'react-router-dom';
 
 const Profile = () => {
   const [user, setUser] = useState({});
@@ -16,6 +17,7 @@ const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [tempProfile, setTempProfile] = useState(profile);
   const [saving, setSaving] = useState(false);
+  const [unauthorized, setUnauthorized] = useState(false);
 
   useEffect(() => {
     fetchProfile();
@@ -25,12 +27,34 @@ const Profile = () => {
     try {
       // Get token from memory/state instead of localStorage
       const token = window.sessionToken || localStorage?.getItem('token');
+      
+      if (!token) {
+        setUnauthorized(true);
+        setLoading(false);
+        return;
+      }
+
       const response = await fetch('http://localhost:5000/api/profile', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
+
+      if (!response.ok) {
+        setUnauthorized(true);
+        setLoading(false);
+        return;
+      }
+
       const data = await response.json();
+      
+      // Check if user is jobseeker, if not redirect to appropriate profile
+      if (data.user?.role !== 'jobseeker') {
+        setUnauthorized(true);
+        setLoading(false);
+        return;
+      }
+
       setUser(data.user || {});
       const profileData = {
         phone: data.profile?.phone || '',
@@ -45,6 +69,7 @@ const Profile = () => {
       setLoading(false);
     } catch (error) {
       console.error('Error fetching profile:', error);
+      setUnauthorized(true);
       setLoading(false);
     }
   };
@@ -270,6 +295,11 @@ const Profile = () => {
     document.body.removeChild(a);
   };
 
+  // Redirect if unauthorized or wrong role
+  if (unauthorized) {
+    return <Navigate to="/profile" replace />;
+  }
+
   const currentProfile = isEditing ? tempProfile : profile;
 
   if (loading) {
@@ -295,7 +325,7 @@ const Profile = () => {
                   <User className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-bold text-white">Profile</h1>
+                  <h1 className="text-2xl font-bold text-white">Job Seeker Profile</h1>
                   <p className="text-blue-100 text-sm">Manage your professional information</p>
                 </div>
               </div>
