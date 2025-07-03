@@ -4,6 +4,9 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
+import jobRoutes from './routes/companyRoutes.js';
+import companyProfileRoutes from './routes/companyprofileroutes.js';
+
 
 dotenv.config();
 
@@ -22,6 +25,8 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hiregenix
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
+app.use('/api/jobs', jobRoutes);
+app.use('/api', companyProfileRoutes);
 
 app.get('/', (req, res) => {
   res.json({ message: 'HireGenix API is running!' });

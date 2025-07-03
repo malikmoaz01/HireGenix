@@ -63,7 +63,8 @@ const ProfileRedirect = () => {
 
   // Redirect based on user role
   if (userRole === 'company') {
-    return <Navigate to="/company-profile" replace />;
+    console.log("Redirecting to company dashboard...");
+    return <Navigate to="/company_dashboard" replace />;
   } else if (userRole === 'jobseeker') {
     return <Navigate to="/jobseeker-profile" replace />;
   } else {

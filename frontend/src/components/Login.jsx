@@ -37,10 +37,21 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok) {
+        // ✅ Save token and user
         localStorage.setItem('token', data.token);
         localStorage.setItem('user', JSON.stringify(data.user));
         console.log('Login successful:', data);
-        navigate('/');
+
+        // ✅ Role-Based Redirect
+        const role = data.user?.role;
+
+        if (role === 'company') {
+          navigate('/company_dashboard');
+        } else if (role === 'jobseeker') {
+          navigate('/jobseeker-profile');
+        } else {
+          navigate('/');
+        }
       } else {
         setError(data.message || 'Login failed');
       }
