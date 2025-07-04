@@ -19,7 +19,7 @@ router.get('/:id', getJobById);
 router.post('/',  createJob);
 router.put('/:id',  updateJob);
 router.delete('/:id',  deleteJob);
-router.get('/company/my-jobs',  getJobsByCompany);
+router.get('/company/jobs',  getJobsByCompany);
 router.get('/company/stats',  getJobStats);
 
-export default router;
+export default router; 

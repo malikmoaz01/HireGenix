@@ -1,4 +1,4 @@
-import CompanyProfile from '../models/companymodel.js';
+import CompanyProfile from '../models/Company.js';
 import User from '../models/User.js'; 
 import multer from 'multer';
 import path from 'path';

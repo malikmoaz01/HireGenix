@@ -35,7 +35,7 @@ const JobManagementApp = () => {
     try {
       const response = await fetch(`${API_BASE}/jobs`);
       const data = await response.json();
-      setJobs(data.jobs || []);
+      setJobs(data.data.jobs || []); 
     } catch (error) {
       console.error('Error fetching jobs:', error);
     } finally {
@@ -466,7 +466,7 @@ const JobManagementApp = () => {
                     className="bg-gray-100 text-gray-700 px-8 py-3 rounded-xl hover:bg-gray-200 transition-all duration-200"
                   >
                     Cancel
-                  </button>
+                  </button> 
                 </div>
               </div>
             </form>
