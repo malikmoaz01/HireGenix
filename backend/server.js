@@ -4,7 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/authRoutes.js';
 import profileRoutes from './routes/profileRoutes.js';
-import jobRoutes from './routes/companyRoutes.js';
+import jobRoutes from './routes/jobRoutes.js';
 import companyProfileRoutes from './routes/companyprofileroutes.js';
 
 

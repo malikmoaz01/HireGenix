@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Senior React Developer",
+    "description": "We are looking for a Senior React Developer with 3+ years of experience in building modern web applications.",
+    "requiredSkills": ["React", "JavaScript", "HTML", "CSS"],
+    "salary": {
+      "min": 70000,
+      "max": 120000,
+      "currency": "USD"
+    },
+    "location": {
+      "type": "remote",
+      "city": "",
+      "state": "",
+      "country": "USA"
+    },
+    "employmentType": "full-time",
+    "experienceLevel": "senior",
+    "applicationDeadline": "2025-08-31",
+    "status": "active",
+    "urgency": "high",
+    "department": "Engineering",
+    "views": 0,
+    "applicationsCount": 0
+  },
+  {
+    "title": "Junior Node.js Developer",
+    "description": "Join our backend team to build scalable APIs using Node.js and MongoDB.",
+    "requiredSkills": ["Node.js", "MongoDB", "Express.js"],
+    "salary": {
+      "min": 40000,
+      "max": 70000,
+      "currency": "USD"
+    },
+    "location": {
+      "type": "onsite",
+      "city": "Lahore",
+      "state": "Punjab",
+      "country": "Pakistan"
+    },
+    "employmentType": "full-time",
+    "experienceLevel": "junior",
+    "applicationDeadline": "2025-09-15",
+    "status": "active",
+    "urgency": "medium",
+    "department": "Backend",
+    "views": 0,
+    "applicationsCount": 0
+  }
+]

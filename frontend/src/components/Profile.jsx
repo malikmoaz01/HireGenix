@@ -112,7 +112,7 @@ const Profile = () => {
       
       // Remove resumeFile from the data to save
       const { resumeFile, ...profileData } = profileToSave;
-      
+      console.log('Sending profile data:', profileData);
       const response = await fetch('http://localhost:5000/api/profile', {
         method: 'PUT',
         headers: {

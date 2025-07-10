@@ -68,8 +68,7 @@ const companyProfileSchema = new mongoose.Schema({
 }, {
   timestamps: true
 });
-
-// Index for faster queries
+ 
 companyProfileSchema.index({ userId: 1 });
 
 export default mongoose.model('CompanyProfile', companyProfileSchema);

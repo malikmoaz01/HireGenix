@@ -1,9 +1,21 @@
 import Job from '../models/Job.js';
 import mongoose from 'mongoose';
+import CompanyProfile from '../models/Company.js';
 
 // Create a new job
 export const createJob = async (req, res) => {
   try {
+    const userId = req.user._id;  
+
+    const companyProfile = await CompanyProfile.findOne({ userId });
+
+    if (!companyProfile) {
+      return res.status(404).json({
+        success: false,
+        message: "Company profile not found for this user",
+      });
+    }
+
     const {
       title,
       description,
@@ -12,15 +24,13 @@ export const createJob = async (req, res) => {
       location,
       employmentType,
       experienceLevel,
-      applicationDeadline,
-      company // 🟢 Now coming from req.body
+      applicationDeadline
     } = req.body;
 
-    // Validate required fields
-    if (!title || !description || !requiredSkills || !salary || !location || !applicationDeadline || !company) {
+    if (!title || !description || !requiredSkills || !salary || !location || !applicationDeadline) {
       return res.status(400).json({
         success: false,
-        message: 'All required fields must be provided'
+        message: 'All required fields must be provided',
       });
     }
 
@@ -33,7 +43,7 @@ export const createJob = async (req, res) => {
       employmentType,
       experienceLevel,
       applicationDeadline,
-      company // 🟢 Use from body, not req.user
+      company: companyProfile._id  
     });
 
     await job.save();
@@ -43,11 +53,12 @@ export const createJob = async (req, res) => {
       message: 'Job created successfully',
       data: job
     });
+
   } catch (error) {
-    console.error('Error creating job:', error);
+    console.error("Error creating job:", error);
     res.status(500).json({
       success: false,
-      message: 'Error creating job',
+      message: "Error creating job",
       error: error.message
     });
   }
@@ -95,7 +106,7 @@ export const getJobs = async (req, res) => {
     const skip = (page - 1) * limit;
 
     const jobs = await Job.find(query)
-      .populate('company', 'name email')
+      .populate('company', 'companyName logo industry')
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(parseInt(limit));

@@ -17,7 +17,7 @@ const jobSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CompanyProfile',
     required: [true, 'Company is required']
-  },
+  }, 
   requiredSkills: [{
     type: String,
     trim: true

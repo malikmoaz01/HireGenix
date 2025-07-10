@@ -1,8 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Plus, Search, MapPin, DollarSign, Calendar, Eye, Users, Edit, Trash2, Building, Filter, Star, Clock, CheckCircle, XCircle, PauseCircle, Briefcase, Globe, Home, Coffee, TrendingUp, Award, Target } from 'lucide-react';
-
-const API_BASE = 'http://localhost:5000/api';
+ 
+const token = localStorage.getItem("token");
 
 const JobManagementApp = () => {
   const [jobs, setJobs] = useState([]);
@@ -33,11 +33,15 @@ const JobManagementApp = () => {
   const fetchJobs = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/jobs`);
+      const response = await fetch(`http://localhost:5000/api/jobs`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.json();
-      setJobs(data.data.jobs || []); 
+      setJobs(data.data.jobs || []);
     } catch (error) {
-      console.error('Error fetching jobs:', error);
+      console.error("Error fetching jobs:", error);
     } finally {
       setLoading(false);
     }
@@ -49,23 +53,25 @@ const JobManagementApp = () => {
 
     const jobData = {
       ...formData,
-      requiredSkills: formData.requiredSkills.length > 0 ? formData.requiredSkills : ['JavaScript'],
+      requiredSkills: formData.requiredSkills.length > 0 ? formData.requiredSkills : ["JavaScript"],
       salary: {
         min: Number(formData.salary.min),
         max: Number(formData.salary.max),
-        currency: formData.salary.currency
-      },
-      company: '507f1f77bcf86cd799439011'
+        currency: formData.salary.currency,
+      }
     };
 
     try {
-      const url = editingJob ? `${API_BASE}/jobs/${editingJob._id}` : `${API_BASE}/jobs`;
-      const method = editingJob ? 'PUT' : 'POST';
+      const url = editingJob ? `http://localhost:5000/api/jobs/${editingJob._id}` : `http://localhost:5000/api/jobs`;
+      const method = editingJob ? "PUT" : "POST";
 
       const response = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(jobData)
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(jobData),
       });
 
       if (response.ok) {
@@ -74,20 +80,25 @@ const JobManagementApp = () => {
         setShowForm(false);
       }
     } catch (error) {
-      console.error('Error saving job:', error);
+      console.error("Error saving job:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const deleteJob = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this job?')) return;
+    if (!window.confirm("Are you sure you want to delete this job?")) return;
 
     try {
-      await fetch(`${API_BASE}/jobs/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:5000/api/jobs/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchJobs();
     } catch (error) {
-      console.error('Error deleting job:', error);
+      console.error("Error deleting job:", error);
     }
   };
 
@@ -180,7 +191,7 @@ const JobManagementApp = () => {
   const activeJobs = jobs.filter(job => job.status === 'active').length;
   const totalApplications = jobs.reduce((sum, job) => sum + (job.applicationsCount || 0), 0);
   const totalViews = jobs.reduce((sum, job) => sum + (job.views || 0), 0);
-
+console.log("Token from storage:", localStorage.getItem("token"));
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50">
       <div className="max-w-7xl mx-auto p-6">
@@ -466,7 +477,7 @@ const JobManagementApp = () => {
                     className="bg-gray-100 text-gray-700 px-8 py-3 rounded-xl hover:bg-gray-200 transition-all duration-200"
                   >
                     Cancel
-                  </button> 
+                  </button>
                 </div>
               </div>
             </form>
@@ -595,8 +606,8 @@ const JobManagementApp = () => {
                   <div className="flex items-center gap-2">
                     {getStatusIcon(job.status)}
                     <span className={`px-4 py-2 rounded-full text-sm font-medium ${job.status === 'active' ? 'bg-green-100 text-green-800' :
-                        job.status === 'paused' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
+                      job.status === 'paused' ? 'bg-yellow-100 text-yellow-800' :
+                        'bg-red-100 text-red-800'
                       }`}>
                       {job.status}
                     </span>
