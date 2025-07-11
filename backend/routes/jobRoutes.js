@@ -1,22 +1,33 @@
 import express from 'express';
-import { createJob, getMyJobs, updateJobStatus, deleteJob, getAllJobs } from '../controller/jobController.js';
-import { auth } from '../middleware/auth.js';
+import {
+  createJob,
+  getMyJobs,
+  getAllJobs,
+  getJobById,
+  updateJobStatus,
+  updateJob,
+  deleteJob,
+  getJobStats
+} from '../controller/jobController.js';
+import { auth, companyOnly } from '../middleware/auth.js';
 
 const router = express.Router();
 
-// Create a new job (company only)
-router.post('/', auth, createJob);
+// Public routes (no authentication required)
+router.get('/all', getAllJobs);
 
-// Get all jobs posted by the logged-in company
-router.get('/my-jobs', auth, getMyJobs);
+// Protected routes (authentication required)
+router.use(auth);
 
-// Get all jobs (for job seekers)
-router.get('/', getAllJobs);
+// Company-only routes - IMPORTANT: More specific routes must come before parameterized routes
+router.post('/', companyOnly, createJob);
+router.get('/my-jobs', companyOnly, getMyJobs);
+router.get('/stats/dashboard', companyOnly, getJobStats);
+router.patch('/:id/status', companyOnly, updateJobStatus);
+router.put('/:id', companyOnly, updateJob);
+router.delete('/:id', companyOnly, deleteJob);
 
-// Update job status
-router.patch('/:jobId/status', auth, updateJobStatus);
-
-// Delete job
-router.delete('/:jobId', auth, deleteJob);
+// Parameterized routes should come last
+router.get('/:id', getJobById);
 
 export default router;
