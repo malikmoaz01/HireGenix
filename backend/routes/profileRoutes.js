@@ -5,7 +5,7 @@ import {
   updateProfile, 
   uploadResume, 
   downloadResume, 
-  deleteResume,
+  deleteResume, 
   upload 
 } from '../controller/profileController.js';
 

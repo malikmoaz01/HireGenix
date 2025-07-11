@@ -21,12 +21,13 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/hiregenix
 })
 .then(() => console.log('MongoDB connected'))
 .catch(err => console.log('MongoDB connection error:', err));
-
+console.log("JWT_SECRET from env file:", process.env.JWT_SECRET);
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api', profileRoutes);
 app.use('/api/jobs', jobRoutes);
 app.use('/api', companyProfileRoutes);
+
 
 app.get('/', (req, res) => {
   res.json({ message: 'HireGenix API is running!' });
